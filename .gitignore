@@ -1,0 +1,6 @@
+# Plugin repositories are cloned side by side here and keep their own git history.
+/obsidian-unimian/
+/obsidian-unisastra/
+/obsidian-unistoria/
+
+*.log
