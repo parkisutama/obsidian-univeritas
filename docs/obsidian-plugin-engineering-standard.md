@@ -64,7 +64,7 @@ Each one is an explicit exception, as the Playbook's profile rules require.
 | Language | TypeScript, `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax`, `target` ES2022 | |
 | Bundler | esbuild, output to `dist/`, format `cjs` | Obsidian, Electron, CodeMirror, and Lezer packages are external. |
 | Lint and format | Biome, `recommended` preset | Warnings do not fail; errors do. |
-| Obsidian lint | ESLint with `eslint-plugin-obsidianmd` only | Includes `no-unsupported-api`. |
+| Obsidian lint | ESLint 9 with `eslint-plugin-obsidianmd` only | Includes `no-unsupported-api`. ESLint 10 and `@eslint/json` 2 break the plugin's declared peers. |
 | Markdown lint | rumdl | |
 | Tests | Vitest with v8 coverage and a ratcheted threshold | |
 

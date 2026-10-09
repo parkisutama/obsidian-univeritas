@@ -81,7 +81,8 @@ const EXACT_VERSIONS = {
 // Major lines; the lockfile holds the exact version.
 const VERSION_LINES = {
 	typescript: /^\^6\./,
-	eslint: /^\^10\./,
+	// Not 10: eslint-plugin-obsidianmd depends on plugins whose eslint peer stops at 9.
+	eslint: /^\^9\./,
 	"typescript-eslint": /^\^8\./,
 	"@typescript-eslint/parser": /^\^8\./,
 	"eslint-plugin-obsidianmd": /^\^0\.4\./,

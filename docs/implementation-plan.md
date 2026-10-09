@@ -43,7 +43,7 @@ Versions are the latest stable releases on 2026-10-09 that are mutually compatib
 | pnpm | 12.10.1 | 12.4.2 | 11.21.0 | 12.8.1 | Unisastra crosses a major; review the lockfile diff. |
 | TypeScript | 6.0.x | ^6.0.3 | ^5.9.3 | ^6.0.3 | **Not 7.0.2.** `typescript-eslint` 8.71.1 requires `typescript <6.1.0`. |
 | `typescript-eslint`, `@typescript-eslint/parser` | 8.71.1 | ^8.70.0 | parser only | ^8.71.0 | The meta package is a peer of `eslint-plugin-obsidianmd`; it stays. |
-| ESLint | 10.12.0 | ^10.11.0 | ^10.9.0 | ^9.39.5 | The Obsidian plugin accepts `>=9.19.0`. |
+| ESLint | 9.39.5 | ^10.11.0 | ^10.9.0 | ^9.39.5 | **Not 10.** `eslint-plugin-obsidianmd` depends on plugins whose `eslint` peer stops at 9; `pnpm peers check` is clean only on 9. |
 | `eslint-plugin-obsidianmd` | 0.4.2 | ^0.4.2 | ^0.4.1 | ^0.4.2 | Latest. |
 | `@eslint/json` | 0.14.0 | 2.1.0 | ^0.14.0 | 0.14.0 | **Not 2.1.1.** The Obsidian plugin pins this peer to exactly `0.14.0`. |
 | Biome | 2.5.15 | 2.5.14 | 2.5.8 | 2.5.14 | `recommended` preset; `ultracite` removed. |
@@ -125,6 +125,14 @@ Risks:
 - Unisastra takes three major upgrades at once. Do them as separate commits inside the pull request so a failure is attributable.
 
 Exit: `pnpm run check:ci` passes in each repository; `pnpm audit --prod` is clean; the development-only advisories that remain are listed in the pull request.
+
+Status: done on 2026-10-09. `pnpm audit` reports nothing in Unimian and Unistoria, and two development-only high advisories in Unisastra (`braces` through Stylelint has no patched release; `@vue/server-renderer` through VitePress). Unisastra was reformatted to tabs in a separate pull request. Two items moved to Phase 3: removing `tsx` from Unisastra, and Unisastra's Vitest wrapper.
+
+Findings worth keeping:
+
+- Vitest 5 cannot load the types-only `obsidian` package even when a test mocks it; each repository aliases `obsidian` to a file under `tests/fixtures/`.
+- Obsidian's `Plugin` class defines `settings` since 1.13, so a subclass declares it with `declare settings: T`.
+- pnpm adds a too-new version to `minimumReleaseAgeExclude` by itself. Prefer the previous version over accepting that entry.
 
 ### Phase 3 — Scripts and build layout
 
@@ -248,4 +256,4 @@ Decided on 2026-10-09:
 - **Tags and releases:** deleted in Unimian and Unisastra on 2026-10-09, ahead of the rest of Phase 7.
 - **Workspace repository:** stays local for now; plugin folders are ignored, not submodules. `README.md`, `CHANGELOG.md`, `SECURITY.md`, `LICENSE`, and release records stay in each plugin repository.
 - **`electron` in Unisastra:** removed from `devDependencies`. Five manual regression scripts under `scripts/` run inside Electron and are not wired to any `package.json` script or workflow; they are run on demand with `pnpm dlx electron@<version>`, documented in `CONTRIBUTING.md`. `src/electron-remote.d.ts` imports one type from `electron` and is rewritten as a local interface.
-- **`@eslint/json`:** `0.14.0`. ESLint itself is `10.12.0`.
+- **`@eslint/json`:** `0.14.0`. ESLint itself is `9.39.5`.
