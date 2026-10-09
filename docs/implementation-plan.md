@@ -180,6 +180,8 @@ See [Licensing analysis](#licensing-analysis). Work per repository:
 
 Exit: the SPDX assertion in the conformance test passes.
 
+Status: done on 2026-10-09. Headers were added with `templates/tools/add-spdx-headers.mjs`; license texts come from the SPDX license list and are kept in `templates/LICENSES/`. Unisastra turned out to be a fork of Typewriter Mode (MIT), so its headers follow file provenance, and its build now ships six third-party notices instead of three. `reuse lint` was not run.
+
 ### Phase 6 — CI/CD
 
 | Item | Work |
@@ -222,6 +224,7 @@ This is an engineering inventory, not legal advice.
 | Unimian | lhassa8/obsidian-bases-gantt | MIT | Portions adapted |
 | Unimian | mmattia09/obsidian-project-manager | not checked | Referenced once; relationship to confirm |
 | Unimian | fullcalendar, @jaeungkim/gantt-chart, preact, temporal-polyfill | MIT (as noticed) | Bundled |
+| Unisastra | davisriedel/obsidian-typewriter-mode | MIT | Derived from; the repository began as a copy (132 files trace back to it) |
 | Unisastra | 0png/Floaty-Toolbar | MIT | Adapted |
 | Unisastra | czottmann/obsidian-mononote | MIT | Adapted |
 | Unisastra | dy-sh/obsidian-remember-cursor-position | MIT | Adapted |

@@ -34,6 +34,7 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | ERR-01 | Unisastra | The Markdown lint passed locally on Windows but failed in CI on three broken relative links. The local/CI difference is unexplained. | open |
 | ERR-02 | Unisastra | pnpm 11 refused to reuse `node_modules` and asked to purge it. Gone after the move to pnpm 12; cause not investigated. | open |
 | ERR-03 | All | pnpm adds a too-new package version to `minimumReleaseAgeExclude` without asking. Decide whether to set `minimumReleaseAgeStrict`. | open |
+| ERR-06 | Unistoria | One test timed out at 5 s once during a coverage run and passed on two reruns; which test was not captured. | open |
 | ERR-04 | Unisastra | Vitest 5 cannot resolve the types-only `obsidian` package even when mocked; worked around with a stub alias. | closed 2026-10-09 |
 | ERR-05 | Unimian | `strict` surfaced one error: `settings` clashes with the property Obsidian's `Plugin` defines since 1.13. | closed 2026-10-09 |
 
@@ -47,8 +48,8 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-04 | Unimian | `pnpm run dev` with `.env` loaded through `process.loadEnvFile` was not exercised. | open |
 | VER-05 | Unisastra | The tab reformat touched 296 files; reviewed only through the automated gates. | open |
 | VER-06 | All | Whether Obsidian itself rejects a vault path containing `..`. | open |
-| VER-07 | Unisastra | Two files say "no code ported" from `deathau` repositories that declare no license; not compared against upstream. | open |
-| VER-08 | Unimian | The relationship to `mmattia09/obsidian-project-manager` and that project's license. | open |
+| VER-07 | Unisastra | Source comments say no code was ported from two `deathau` repositories that declare no license; not compared against upstream. Typewriter Mode, which Unisastra derives from, says it began as a fork of one of them. | open |
+| VER-08 | Unimian | The relationship to `mmattia09/obsidian-project-manager` and that project's license. Checked: MIT, adapted in two files, already listed in `THIRD_PARTY_NOTICES.md`. | closed 2026-10-09 |
 | VER-09 | All | Git history was scanned for secrets by pattern only, not with a dedicated tool. | open |
 | VER-11 | Unimian | The bundle target moved from es2018 to es2022; not loaded in Obsidian on desktop or mobile since. | open |
 | VER-12 | All | `pnpm run deploy` and the `dev` vault copy were tested with temporary folders only, not against a real vault. | open |
@@ -57,6 +58,10 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-15 | Unimian | Notes created without a template now have frontmatter written by Obsidian's `stringifyYaml` (for example `start: 2026-01-01` instead of `start: "2026-01-01"`). Check that Bases views, the Properties panel, and the Gantt write-back read them the same way. | open |
 | VER-16 | Unimian, Unistoria | The message shown to the user when a path with `..` is refused was not seen in Obsidian. | open |
 | VER-17 | Unisastra | The legacy cursor migration was not run against a real pre-1.2.0 data folder. | open |
+| VER-18 | All | `reuse lint` was not run; `REUSE.toml` and `LICENSES/` were written by hand. The REUSE tool is not part of the toolchain. | open |
+| VER-19 | Unisastra | File provenance was decided by git history: a file that traces back to the first commit is treated as derived from Typewriter Mode. Not compared with the upstream repository file by file. | open |
+| VER-20 | Unimian | Four stylesheets are attributed to Planner on the basis of shared section structure and class names, not a line comparison. | open |
+| VER-21 | Unistoria | The native acceptance scripts under `scripts/native/` now start with two comment lines; not run since. | open |
 | VER-10 | All | Facts about Obsidian's rules (tag format, release assets, `fundingUrl`) are from memory and need checking against the current Obsidian documentation. | open |
 
 ## Decisions taken during the work, to confirm
@@ -66,6 +71,9 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | DEC-01 | Unimian | New-note frontmatter uses `stringifyYaml` in a single write, not `processFrontMatter`. `processFrontMatter` needs the file to exist, so the note would be created empty and modified a moment later, which views see as two changes. `stringifyYaml` is the serializer `processFrontMatter` uses, and the one `NoteTemplateService` already used. | open |
 | DEC-02 | Unimian, Unistoria | The path guard rejects only `..` segments. A leading slash is left to `normalizePath`, because users commonly type `/Folder` in settings. | open |
 | DEC-03 | Unisastra | No path guard was added: the plugin creates no vault files or folders. | open |
+| DEC-04 | Unisastra | Unisastra is a fork of Typewriter Mode (MIT, Davis Riedel), which was not part of the earlier licensing analysis. The move to GPL-3.0-only went ahead because MIT allows it; 132 files keep `GPL-3.0-only AND MIT` with the upstream copyright. | open |
+| DEC-05 | Unisastra | Upstream notice files moved from `licenses/` to `third-party-notices/` so `LICENSES/` can hold SPDX texts; the two names collide on Windows. The shipped folder is still `licenses/`. | open |
+| DEC-06 | Unimian, Unistoria | Root configuration files such as `esbuild.config.mjs` have no SPDX header; they are covered by `REUSE.toml`. Unimian's derives from Planner's. | open |
 
 ## Documentation findings
 
