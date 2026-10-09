@@ -4,3 +4,6 @@
 /obsidian-unistoria/
 
 *.log
+
+# Worktrees used for automated changes, so a plugin checkout in use is not disturbed.
+/.worktrees/

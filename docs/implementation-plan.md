@@ -199,6 +199,14 @@ Status: done on 2026-10-09. Headers were added with `templates/tools/add-spdx-he
 
 Exit: conformance test fully green in all three; a pull request shows all jobs passing.
 
+Status: done on 2026-10-09. Conformance passes 19 of 19 in every repository and is part of `verify`. The version restart planned for Phase 7 was done here as well, because the release workflow needs its baseline: each repository first got `feat: restart version numbering at 0.0.1` with a `Release-As: 0.0.1` footer, then the workflows. release-please opened `chore: release 0.0.1` in all three; merging those is the maintainer's release decision and the remaining part of Phase 7.
+
+Changes from the plan:
+
+- `versions.json` follows Obsidian's rule (an entry only when `minAppVersion` changes), so the Release PR needs no extra job to update it.
+- The release is not created as a draft; release-please's handling of draft releases was not relied on.
+- No tag ruleset yet (open item TMP-04).
+
 ### Phase 7 — Reset to 0.0.1 and GitHub settings
 
 This phase deletes public tags and releases and cannot be undone.

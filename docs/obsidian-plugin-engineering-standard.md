@@ -75,7 +75,7 @@ Exact tool versions and the dependency allowlist are not yet standardized; see [
 - `manifest.json` `minAppVersion` is the single source of truth. Current value for all plugins: `1.14.4`.
 - The `obsidian` dev dependency is pinned to the exact same version, so an API newer than the minimum fails at compile time.
 - A feature that needs a newer host is gated at runtime with `requireApiVersion` and degrades with a notice.
-- `versions.json` maps every released plugin version to the `minAppVersion` it shipped with. Entries for released versions are never edited.
+- `versions.json` needs an entry only for a plugin version that changed `minAppVersion`; a version without its own entry inherits the nearest earlier one. `scripts/versions-map.mjs` implements the rule and `verify:artifacts` enforces it. Entries for released versions are never edited.
 
 ## Script contract
 
@@ -171,7 +171,10 @@ Rules:
 | --- | --- | --- |
 | `verify` | `ubuntu-latest` | Frozen install, `pnpm audit --prod`, `pnpm run verify`, upload `coverage/`. |
 | `test-windows` | `windows-latest` | Frozen install, `pnpm run test`. |
-| `commitlint` | `ubuntu-latest` | Pull requests only: validate every commit in the range. |
+| `commitlint` | `ubuntu-latest` | Pull requests only: validate the pull request title and every commit in the range. |
+
+The three job names shown in GitHub (`Verify`, `Test (Windows)`, `Commit messages`) are the required checks of the `main` branch protection.
+The workflow files are identical in every plugin repository; the master copies are in `templates/plugin/` and `templates/tools/apply-plugin-template.mjs` installs them.
 
 Rules:
 
@@ -201,7 +204,7 @@ Each plugin's `README.md` states this.
 ### Release flow
 
 1. Pull requests merge into `main` with Conventional Commit messages.
-2. The release workflow opens or updates one Release PR. It contains the proposed version, the generated `CHANGELOG.md` section, and the synchronized `package.json`, `manifest.json`, and `versions.json`.
+2. The release workflow (release-please) opens or updates one Release PR, `chore: release X.Y.Z`. It contains the proposed version in `package.json` and `manifest.json` and the generated `CHANGELOG.md` section.
 3. **Human gate (G3).** The maintainer edits the changelog into consumer-facing wording under Keep a Changelog categories, overrides the version when the commits understate or overstate the impact, adds the release record `docs/releases/X.Y.Z.md` for a minor or major release, and merges. No merge means no release.
 4. After the merge the workflow creates the tag `X.Y.Z`, runs `pnpm run verify`, attests build provenance, and publishes a GitHub release with `main.js`, `manifest.json`, and `styles.css`.
 
@@ -212,6 +215,10 @@ Rules:
 - The job that builds and tests has `contents: read`; only the publishing job has `contents: write`, `id-token: write`, and `attestations: write`.
 - The release record carries the Playbook gate record with `Gate: G3`, the evidence summary, and the native acceptance status. An AI agent may draft it from `docs/releases/TEMPLATE.md` following the Release section of `AGENTS.md`; the decision stays `pending` until the maintainer sets it.
 - A failed release is fixed forward with a new version. A published tag is never moved or reused.
+- `CHANGELOG.md` starts as an empty file; release-please treats any existing text as old entries. The Markdown lint excludes it.
+- A pull request opened with the default workflow token does not start CI. Set the repository secret `RELEASE_TOKEN` to have CI run on the Release PR, or close and reopen it.
+- release-please leaves an open Release PR untouched when its description is unchanged. To rebuild one, close it and run the release workflow by hand.
+- The GitHub release exists for a short time before its files are attached, because the files are built after the tag is created.
 
 ## Licensing
 
