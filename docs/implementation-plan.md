@@ -154,6 +154,8 @@ Vitest wrappers (`scripts/run-vitest.mjs`, `scripts/test.mjs`) are removed only 
 
 Exit: script-contract assertions in the conformance test pass; `pnpm run verify` passes; `pnpm run deploy` works against a test vault.
 
+Status: done on 2026-10-09, except that `deploy` was exercised with temporary folders only. Unimian was first reformatted with Biome in its own pull request so that `lint` could become `biome check`. Unisastra runs its TypeScript scripts with Node directly; `tsx` is removed. Both Vitest wrappers are still in place. Items left open are in the [open items register](open-items.md).
+
 ### Phase 4 — Code findings
 
 | Finding | Test first | Then |

@@ -50,13 +50,38 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-07 | Unisastra | Two files say "no code ported" from `deathau` repositories that declare no license; not compared against upstream. | open |
 | VER-08 | Unimian | The relationship to `mmattia09/obsidian-project-manager` and that project's license. | open |
 | VER-09 | All | Git history was scanned for secrets by pattern only, not with a dedicated tool. | open |
+| VER-11 | Unimian | The bundle target moved from es2018 to es2022; not loaded in Obsidian on desktop or mobile since. | open |
+| VER-12 | All | `pnpm run deploy` and the `dev` vault copy were tested with temporary folders only, not against a real vault. | open |
+| VER-13 | Unimian | The release workflow's zip step was rewritten for `dist/` and has not run. | open |
+| VER-14 | Unimian | Biome applied safe fixes (import sorting, `import type`) across about 170 files; reviewed only through the automated gates. | open |
 | VER-10 | All | Facts about Obsidian's rules (tag format, release assets, `fundingUrl`) are from memory and need checking against the current Obsidian documentation. | open |
+
+## Documentation findings
+
+| ID | Plugin | Item | State |
+| --- | --- | --- | --- |
+| DOC-01 | Unimian | `docs/specs/gantt.md` line 123: table rows without a header row (MD075). | open |
+| DOC-02 | Unimian | `docs/specs/periodic-notes.md`: decisions numbered 14, 15, 13 out of order; other text refers to them by number (MD029). | open |
+| DOC-03 | Unimian | `docs/architecture/upstream-provenance.md` links to `../specs/code-quality-and-performance.md`, which does not exist (MD057). | open |
+| DOC-04 | Unimian | `docs/plans/license-compliance.md` uses bold text as headings (MD036). | open |
+| DOC-05 | Unisastra | Status logs, specs, ADRs, and archived documents still name `check:ci`; left as historical records. Decide whether to annotate them. | open |
+| DOC-06 | Unimian | `AGENTS.md` is titled "Copilot Custom Instructions", links Planner to the wrong repository URL, and has no `CLAUDE.md` router. | open |
+| DOC-07 | All | Each plugin's `AGENTS.md` and `CONTRIBUTING.md` describe commands separately; consolidate the shared part into the workspace standard. | open |
+
+## Coverage
+
+| ID | Plugin | Item | State |
+| --- | --- | --- | --- |
+| COV-01 | Unisastra | Coverage ratchet starts at about 31%; most editor and UI code has no unit tests. | open |
+| COV-02 | Unimian | Coverage ratchet is at 18 to 26% while measured coverage is about 72%; raise the floor. | open |
 
 ## Temporary states
 
 | ID | Plugin | Item | State |
 | --- | --- | --- | --- |
 | TMP-01 | Unimian, Unisastra | Not installable from GitHub: the manifests name versions whose releases were deleted. Ends with the `0.0.1` release. | open |
-| TMP-02 | Unistoria | `build` still copies to the configured vault, so every gate run writes there. Ends in Phase 3. | open |
+| TMP-02 | Unistoria | `build` still copies to the configured vault, so every gate run writes there. Ends in Phase 3. | closed 2026-10-09 |
+| TMP-05 | Unisastra | `release`, `ci`, and `validate:release-tag` scripts and `package.json` `obsidianMinAppVersion` remain until the Release PR workflow replaces them in Phase 6. | open |
+| TMP-06 | Unimian | `verify:artifacts` does not yet check version consistency; `versions.json` still maps the deleted 1.0.3 release. Both are settled with the reset to 0.0.1. | open |
 | TMP-03 | All | Branch protection requires the current CI job names; they change in Phase 6 and the protection must be updated with them. | open |
 | TMP-04 | All | No tag ruleset yet; it is set together with release-please so the bot can still create tags. | open |
