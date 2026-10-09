@@ -54,7 +54,18 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-12 | All | `pnpm run deploy` and the `dev` vault copy were tested with temporary folders only, not against a real vault. | open |
 | VER-13 | Unimian | The release workflow's zip step was rewritten for `dist/` and has not run. | open |
 | VER-14 | Unimian | Biome applied safe fixes (import sorting, `import type`) across about 170 files; reviewed only through the automated gates. | open |
+| VER-15 | Unimian | Notes created without a template now have frontmatter written by Obsidian's `stringifyYaml` (for example `start: 2026-01-01` instead of `start: "2026-01-01"`). Check that Bases views, the Properties panel, and the Gantt write-back read them the same way. | open |
+| VER-16 | Unimian, Unistoria | The message shown to the user when a path with `..` is refused was not seen in Obsidian. | open |
+| VER-17 | Unisastra | The legacy cursor migration was not run against a real pre-1.2.0 data folder. | open |
 | VER-10 | All | Facts about Obsidian's rules (tag format, release assets, `fundingUrl`) are from memory and need checking against the current Obsidian documentation. | open |
+
+## Decisions taken during the work, to confirm
+
+| ID | Plugin | Item | State |
+| --- | --- | --- | --- |
+| DEC-01 | Unimian | New-note frontmatter uses `stringifyYaml` in a single write, not `processFrontMatter`. `processFrontMatter` needs the file to exist, so the note would be created empty and modified a moment later, which views see as two changes. `stringifyYaml` is the serializer `processFrontMatter` uses, and the one `NoteTemplateService` already used. | open |
+| DEC-02 | Unimian, Unistoria | The path guard rejects only `..` segments. A leading slash is left to `normalizePath`, because users commonly type `/Folder` in settings. | open |
+| DEC-03 | Unisastra | No path guard was added: the plugin creates no vault files or folders. | open |
 
 ## Documentation findings
 

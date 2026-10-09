@@ -167,6 +167,8 @@ Status: done on 2026-10-09, except that `deploy` was exercised with temporary fo
 
 Exit: new tests pass; native check recorded in the pull request.
 
+Status: code and tests done on 2026-10-09; the native checks are not done and are listed in the [open items register](open-items.md) (VER-06, VER-15 to VER-17). The frontmatter fix uses `stringifyYaml` rather than `processFrontMatter` (DEC-01). The tests reproduced the defect before the fix: a property named `due: soon` produced `due: soon: 1`, and a name containing a line break added a property.
+
 ### Phase 5 — Licensing and SPDX
 
 See [Licensing analysis](#licensing-analysis). Work per repository:
