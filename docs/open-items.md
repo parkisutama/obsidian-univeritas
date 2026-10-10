@@ -21,18 +21,18 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | ID | Plugin | Item | State |
 | --- | --- | --- | --- |
 | DEP-01 | Unisastra | `braces` (high) through `stylelint` and `stylelint-config-standard-scss`; no patched release exists. | open; decided 2026-10-10 to wait for a patched release and watch it |
-| DEP-02 | Unisastra | `@vue/server-renderer` (high) through `vitepress` 1.6.4, which pins an old Vite and Vue line. | open |
-| DEP-03 | Unisastra | `pnpm-workspace.yaml` overrides `js-yaml` and `vitepress>vite` as security patches; recheck whether they are still needed. | open |
-| DEP-04 | Unisastra | `@parcel/watcher` is allowed to run an install script; confirm which package needs it. | open |
-| DEP-05 | All | `obsidian@1.14.4` sits in `minimumReleaseAgeExclude`; remove the entry once the release is old enough. | open |
+| DEP-02 | Unisastra | `@vue/server-renderer` (high) through `vitepress` 1.6.4, which pins an old Vite and Vue line. | closed 2026-10-10: VitePress removed with the documentation site |
+| DEP-03 | Unisastra | `pnpm-workspace.yaml` overrides `js-yaml` and `vitepress>vite` as security patches; recheck whether they are still needed. | closed 2026-10-10: the two overrides existed for VitePress and went with it |
+| DEP-04 | Unisastra | `@parcel/watcher` is allowed to run an install script; confirm which package needs it. | closed 2026-10-10: `@parcel/watcher` is the file watcher of `sass`; recorded in `pnpm-workspace.yaml` |
+| DEP-05 | All | `obsidian@1.14.4` sits in `minimumReleaseAgeExclude`; remove the entry once the release is old enough. | closed 2026-10-10: exclusion removed in all three; installs pass |
 | DEP-06 | All | TypeScript 7 and ESLint 10 are held back by `typescript-eslint` and `eslint-plugin-obsidianmd`; revisit when those support them. | open |
 
 ## Working arrangement
 
 | ID | Plugin | Item | State |
 | --- | --- | --- | --- |
-| WRK-01 | Unistoria | Another session was working in the Unistoria checkout (`feature/space-management`, uncommitted changes) during Phase 6. Automated changes now go through worktrees under `.worktrees/`, so plugin checkouts in use are left alone. That branch needs `main` merged in: `main` gained the workflows, hooks, and version 0.0.1. | open |
-| WRK-02 | All | The plugin checkouts still sit on the commits they had before Phase 6; pull `main` when convenient. Run `pnpm install` afterwards so the Husky hooks are installed. | open |
+| WRK-01 | Unistoria | Another session was working in the Unistoria checkout (`feature/space-management`, uncommitted changes) during Phase 6. Automated changes now go through worktrees under `.worktrees/`, so plugin checkouts in use are left alone. That branch needs `main` merged in: `main` gained the workflows, hooks, and version 0.0.1. | closed 2026-10-10: the space-management work was committed as three commits, rebased onto `main`, and merged as obsidian-unistoria#13 |
+| WRK-02 | All | The plugin checkouts still sit on the commits they had before Phase 6; pull `main` when convenient. Run `pnpm install` afterwards so the Husky hooks are installed. | closed 2026-10-10: the three checkouts are on current `main` with hooks installed |
 
 ## Errors and surprises met during the work
 
@@ -40,7 +40,7 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | --- | --- | --- | --- |
 | ERR-01 | Unisastra | The Markdown lint passed locally on Windows but failed in CI on three broken relative links. The local/CI difference is unexplained. | open |
 | ERR-02 | Unisastra | pnpm 11 refused to reuse `node_modules` and asked to purge it. Gone after the move to pnpm 12; cause not investigated. | open |
-| ERR-03 | All | pnpm adds a too-new package version to `minimumReleaseAgeExclude` without asking. Decide whether to set `minimumReleaseAgeStrict`. | open |
+| ERR-03 | All | pnpm adds a too-new package version to `minimumReleaseAgeExclude` without asking. Decide whether to set `minimumReleaseAgeStrict`. | closed 2026-10-10: `minimumReleaseAgeStrict: true` in all three, checked by the conformance test |
 | ERR-06 | Unistoria | One test timed out at 5 s once during a coverage run and passed on two reruns; which test was not captured. | open |
 | ERR-07 | All | release-please demoted and appended the placeholder heading of a non-empty `CHANGELOG.md`; fixed by starting the file empty. | closed 2026-10-09 |
 | ERR-08 | All | release-please did not rebuild an open Release PR after the changelog seed was fixed; the stale one was closed and recreated. | closed 2026-10-09 |
@@ -57,7 +57,7 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-04 | Unimian | `pnpm run dev` with `.env` loaded through `process.loadEnvFile` was not exercised. | open |
 | VER-05 | Unisastra | The tab reformat touched 296 files; reviewed only through the automated gates. | open |
 | VER-06 | All | Whether Obsidian itself rejects a vault path containing `..`. | open |
-| VER-07 | Unisastra | Source comments say no code was ported from two `deathau` repositories that declare no license; not compared against upstream. Typewriter Mode, which Unisastra derives from, says it began as a fork of one of them. | open |
+| VER-07 | Unisastra | Source comments say no code was ported from two `deathau` repositories that declare no license; not compared against upstream. Typewriter Mode, which Unisastra derives from, says it began as a fork of one of them. | closed 2026-10-10: compared with both death_au repositories. One fragment in `src/cm6/plugin.ts` (two user-event patterns and their combination) is identical to Typewriter Scroll and is now attributed and shipped with a notice; nothing else matched. Both upstreams declare MIT in `package.json` |
 | VER-08 | Unimian | The relationship to `mmattia09/obsidian-project-manager` and that project's license. Checked: MIT, adapted in two files, already listed in `THIRD_PARTY_NOTICES.md`. | closed 2026-10-09 |
 | VER-09 | All | Git history was scanned for secrets by pattern only, not with a dedicated tool. | open |
 | VER-11 | Unimian | The bundle target moved from es2018 to es2022; not loaded in Obsidian on desktop or mobile since. | open |
@@ -67,13 +67,15 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-15 | Unimian | Notes created without a template now have frontmatter written by Obsidian's `stringifyYaml` (for example `start: 2026-01-01` instead of `start: "2026-01-01"`). Check that Bases views, the Properties panel, and the Gantt write-back read them the same way. | open |
 | VER-16 | Unimian, Unistoria | The message shown to the user when a path with `..` is refused was not seen in Obsidian. | open |
 | VER-17 | Unisastra | The legacy cursor migration was not run against a real pre-1.2.0 data folder. | open |
-| VER-18 | All | `reuse lint` was not run; `REUSE.toml` and `LICENSES/` were written by hand. The REUSE tool is not part of the toolchain. | open |
+| VER-18 | All | `reuse lint` was not run; `REUSE.toml` and `LICENSES/` were written by hand. The REUSE tool is not part of the toolchain. | closed 2026-10-10: `reuse lint` run with `uvx`; all three repositories comply with REUSE 3.3 after marking text that only mentions the SPDX tag |
 | VER-19 | Unisastra | File provenance was decided by git history: a file that traces back to the first commit is treated as derived from Typewriter Mode. Not compared with the upstream repository file by file. | open |
 | VER-20 | Unimian | Four stylesheets are attributed to Planner on the basis of shared section structure and class names, not a line comparison. | open |
 | VER-21 | Unistoria | The native acceptance scripts under `scripts/native/` now start with two comment lines; not run since. | open |
 | VER-22 | All | The release workflow's build, attestation, and upload jobs have not run; the 0.0.1 release is their first run. | open |
 | VER-23 | All | That Obsidian lets a plugin version without its own `versions.json` entry inherit the nearest earlier entry. The release flow depends on it. | closed 2026-10-10: confirmed; the Versions reference says an entry is needed only when `minAppVersion` changes |
 | VER-24 | All | Dependabot with pnpm 12 and the grouped configuration: one pull request appeared in Unistoria; behaviour over time not observed. | open |
+| VER-25 | Unistoria | The space-management feature (Change folder dialog, following a renamed space folder, links after a move) has not been run in Obsidian; it will be part of 0.0.1. | open |
+| VER-26 | Unisastra, Unimian | Links in the moved guides were rewritten by a script and checked by the Markdown lint on the plugin side only; the copies in this repository were not link-checked. | open |
 | VER-10 | All | Facts about Obsidian's rules (tag format, release assets, `fundingUrl`) are from memory and need checking against the current Obsidian documentation. | closed 2026-10-10: confirmed in Obsidian's developer documentation (Manifest, Versions, Submit your plugin): version is `x.y.z`, the release tag must match it, assets are `main.js`, `manifest.json`, optional `styles.css`, and `fundingUrl` is a string or an object |
 
 ## Decisions taken during the work, to confirm
@@ -86,6 +88,9 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | DEC-08 | All | The GitHub release is published at once and its files follow about two minutes later, rather than a draft release published after upload. | accepted 2026-10-10 |
 | DEC-09 | All | `RELEASE_TOKEN` is optional. Without it the maintainer closes and reopens the Release PR to start CI. Creating the token is a maintainer action. | accepted 2026-10-10: close and reopen the Release PR for now; no token |
 | DEC-10 | All | commitlint does not enforce subject case, so Dependabot's `Bump ...` titles pass. | accepted 2026-10-10 |
+| DEC-11 | Unisastra | The GitHub Pages site and VitePress are removed; guides are plain Markdown in this repository. No site generator is chosen yet. | accepted 2026-10-10 |
+| DEC-12 | Unistoria | The three space-management commits were squash-merged into one commit on `main`, because the repositories allow squash merges only. The individual commits remain visible in the pull request. | open |
+| DEC-13 | Unisastra | The Typewriter Scroll notice is written by us from upstream's `package.json` (MIT, author death_au), because upstream publishes no license file. | open |
 | DEC-03 | Unisastra | No path guard was added: the plugin creates no vault files or folders. | accepted 2026-10-10 |
 | DEC-04 | Unisastra | Unisastra is a fork of Typewriter Mode (MIT, Davis Riedel), which was not part of the earlier licensing analysis. The move to GPL-3.0-only went ahead because MIT allows it; 132 files keep `GPL-3.0-only AND MIT` with the upstream copyright. | accepted 2026-10-10 |
 | DEC-05 | Unisastra | Upstream notice files moved from `licenses/` to `third-party-notices/` so `LICENSES/` can hold SPDX texts; the two names collide on Windows. The shipped folder is still `licenses/`. | accepted 2026-10-10 |
@@ -101,15 +106,15 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | DOC-04 | Unimian | `docs/plans/license-compliance.md` uses bold text as headings (MD036). | open |
 | DOC-05 | Unisastra | Status logs, specs, ADRs, and archived documents still name `check:ci`; left as historical records. Decide whether to annotate them. | open |
 | DOC-06 | Unimian | `AGENTS.md` is titled "Copilot Custom Instructions", links Planner to the wrong repository URL, and has no `CLAUDE.md` router. | closed 2026-10-09 |
-| DOC-08 | Unisastra | Six developer guides and `DEVELOPMENT.md` still describe the old release steps; each carries a note pointing to `CONTRIBUTING.md`. Rewrite them. | open |
-| DOC-07 | All | Each plugin's `AGENTS.md` and `CONTRIBUTING.md` describe commands separately; consolidate the shared part into the workspace standard. | open |
+| DOC-08 | Unisastra | Six developer guides and `DEVELOPMENT.md` still describe the old release steps; each carries a note pointing to `CONTRIBUTING.md`. Rewrite them. | open; the guides now live in `docs/unisastra/` here and still describe the old release steps |
+| DOC-07 | All | Each plugin's `AGENTS.md` and `CONTRIBUTING.md` describe commands separately; consolidate the shared part into the workspace standard. | closed 2026-10-10: user and developer guides moved to this repository under `docs/unimian/` and `docs/unisastra/`; specifications and decision records stay with the code |
 
 ## Coverage
 
 | ID | Plugin | Item | State |
 | --- | --- | --- | --- |
-| COV-01 | Unisastra | Coverage ratchet starts at about 31%; most editor and UI code has no unit tests. | open |
-| COV-02 | Unimian | Coverage ratchet is at 18 to 26% while measured coverage is about 72%; raise the floor. | open |
+| COV-01 | Unisastra | Coverage ratchet starts at about 31%; most editor and UI code has no unit tests. | open; thresholds to be discussed in a separate session on test quality (maintainer, 2026-10-10) |
+| COV-02 | Unimian | Coverage ratchet is at 18 to 26% while measured coverage is about 72%; raise the floor. | open; thresholds to be discussed in a separate session on test quality (maintainer, 2026-10-10) |
 
 ## Temporary states
 
