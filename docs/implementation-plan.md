@@ -238,8 +238,10 @@ This is an engineering inventory, not legal advice.
 | Unisastra | dy-sh/obsidian-remember-cursor-position | MIT | Adapted |
 | Unisastra | artisticat1/focus-active-sentence | MIT | Adapted |
 | Unisastra | ryanpcmcquen/obsidian-focus-mode | MPL-2.0 | Adapted; TypeScript and SCSS |
-| Unisastra | vslinko/obsidian-zoom, jobedom/obsidian-hemingway-mode | MIT | Inspired by; no code ported |
-| Unisastra | deathau/cm-typewriter-scroll-obsidian, deathau/cm-show-whitespace-obsidian | **no license declared** | Inspired by; no code ported |
+| Unisastra | vslinko/obsidian-zoom | MIT | Adapted in six outliner files (found by comparison on 2026-10-10; the source comments had said no code was ported) |
+| Unisastra | jobedom/obsidian-hemingway-mode | MIT | Inspired by; no shared code found |
+| Unisastra | deathau/cm-typewriter-scroll-obsidian | MIT, declared in `package.json` only | One fragment inherited through Typewriter Mode |
+| Unisastra | deathau/cm-show-whitespace-obsidian | MIT, declared in `package.json` only | Inspired by; no shared code found |
 | Unistoria | parkisutama/obsidian-unimian | GPL-3.0-only | One file adapted |
 
 ### Conclusions
