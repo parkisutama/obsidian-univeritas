@@ -20,7 +20,7 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 
 | ID | Plugin | Item | State |
 | --- | --- | --- | --- |
-| DEP-01 | Unisastra | `braces` (high) through `stylelint` and `stylelint-config-standard-scss`; no patched release exists. | open |
+| DEP-01 | Unisastra | `braces` (high) through `stylelint` and `stylelint-config-standard-scss`; no patched release exists. | open; decided 2026-10-10 to wait for a patched release and watch it |
 | DEP-02 | Unisastra | `@vue/server-renderer` (high) through `vitepress` 1.6.4, which pins an old Vite and Vue line. | open |
 | DEP-03 | Unisastra | `pnpm-workspace.yaml` overrides `js-yaml` and `vitepress>vite` as security patches; recheck whether they are still needed. | open |
 | DEP-04 | Unisastra | `@parcel/watcher` is allowed to run an install script; confirm which package needs it. | open |
@@ -72,24 +72,24 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | VER-20 | Unimian | Four stylesheets are attributed to Planner on the basis of shared section structure and class names, not a line comparison. | open |
 | VER-21 | Unistoria | The native acceptance scripts under `scripts/native/` now start with two comment lines; not run since. | open |
 | VER-22 | All | The release workflow's build, attestation, and upload jobs have not run; the 0.0.1 release is their first run. | open |
-| VER-23 | All | That Obsidian lets a plugin version without its own `versions.json` entry inherit the nearest earlier entry. The release flow depends on it. | open |
+| VER-23 | All | That Obsidian lets a plugin version without its own `versions.json` entry inherit the nearest earlier entry. The release flow depends on it. | closed 2026-10-10: confirmed; the Versions reference says an entry is needed only when `minAppVersion` changes |
 | VER-24 | All | Dependabot with pnpm 12 and the grouped configuration: one pull request appeared in Unistoria; behaviour over time not observed. | open |
-| VER-10 | All | Facts about Obsidian's rules (tag format, release assets, `fundingUrl`) are from memory and need checking against the current Obsidian documentation. | open |
+| VER-10 | All | Facts about Obsidian's rules (tag format, release assets, `fundingUrl`) are from memory and need checking against the current Obsidian documentation. | closed 2026-10-10: confirmed in Obsidian's developer documentation (Manifest, Versions, Submit your plugin): version is `x.y.z`, the release tag must match it, assets are `main.js`, `manifest.json`, optional `styles.css`, and `fundingUrl` is a string or an object |
 
 ## Decisions taken during the work, to confirm
 
 | ID | Plugin | Item | State |
 | --- | --- | --- | --- |
-| DEC-01 | Unimian | New-note frontmatter uses `stringifyYaml` in a single write, not `processFrontMatter`. `processFrontMatter` needs the file to exist, so the note would be created empty and modified a moment later, which views see as two changes. `stringifyYaml` is the serializer `processFrontMatter` uses, and the one `NoteTemplateService` already used. | open |
-| DEC-02 | Unimian, Unistoria | The path guard rejects only `..` segments. A leading slash is left to `normalizePath`, because users commonly type `/Folder` in settings. | open |
-| DEC-07 | All | `versions.json` holds an entry only when `minAppVersion` changes, instead of one per release as first written in the standard. This removes a job that would have pushed to the Release PR. | open |
-| DEC-08 | All | The GitHub release is published at once and its files follow about two minutes later, rather than a draft release published after upload. | open |
-| DEC-09 | All | `RELEASE_TOKEN` is optional. Without it the maintainer closes and reopens the Release PR to start CI. Creating the token is a maintainer action. | open |
-| DEC-10 | All | commitlint does not enforce subject case, so Dependabot's `Bump ...` titles pass. | open |
-| DEC-03 | Unisastra | No path guard was added: the plugin creates no vault files or folders. | open |
-| DEC-04 | Unisastra | Unisastra is a fork of Typewriter Mode (MIT, Davis Riedel), which was not part of the earlier licensing analysis. The move to GPL-3.0-only went ahead because MIT allows it; 132 files keep `GPL-3.0-only AND MIT` with the upstream copyright. | open |
-| DEC-05 | Unisastra | Upstream notice files moved from `licenses/` to `third-party-notices/` so `LICENSES/` can hold SPDX texts; the two names collide on Windows. The shipped folder is still `licenses/`. | open |
-| DEC-06 | Unimian, Unistoria | Root configuration files such as `esbuild.config.mjs` have no SPDX header; they are covered by `REUSE.toml`. Unimian's derives from Planner's. | open |
+| DEC-01 | Unimian | New-note frontmatter uses `stringifyYaml` in a single write, not `processFrontMatter`. `processFrontMatter` needs the file to exist, so the note would be created empty and modified a moment later, which views see as two changes. `stringifyYaml` is the serializer `processFrontMatter` uses, and the one `NoteTemplateService` already used. | accepted 2026-10-10, final after check U3 to U5 in the native checklist |
+| DEC-02 | Unimian, Unistoria | The path guard rejects only `..` segments. A leading slash is left to `normalizePath`, because users commonly type `/Folder` in settings. | accepted 2026-10-10 |
+| DEC-07 | All | `versions.json` holds an entry only when `minAppVersion` changes, instead of one per release as first written in the standard. This removes a job that would have pushed to the Release PR. | accepted 2026-10-10; matches Obsidian's documentation |
+| DEC-08 | All | The GitHub release is published at once and its files follow about two minutes later, rather than a draft release published after upload. | accepted 2026-10-10 |
+| DEC-09 | All | `RELEASE_TOKEN` is optional. Without it the maintainer closes and reopens the Release PR to start CI. Creating the token is a maintainer action. | accepted 2026-10-10: close and reopen the Release PR for now; no token |
+| DEC-10 | All | commitlint does not enforce subject case, so Dependabot's `Bump ...` titles pass. | accepted 2026-10-10 |
+| DEC-03 | Unisastra | No path guard was added: the plugin creates no vault files or folders. | accepted 2026-10-10 |
+| DEC-04 | Unisastra | Unisastra is a fork of Typewriter Mode (MIT, Davis Riedel), which was not part of the earlier licensing analysis. The move to GPL-3.0-only went ahead because MIT allows it; 132 files keep `GPL-3.0-only AND MIT` with the upstream copyright. | accepted 2026-10-10 |
+| DEC-05 | Unisastra | Upstream notice files moved from `licenses/` to `third-party-notices/` so `LICENSES/` can hold SPDX texts; the two names collide on Windows. The shipped folder is still `licenses/`. | accepted 2026-10-10 |
+| DEC-06 | Unimian, Unistoria | Root configuration files such as `esbuild.config.mjs` have no SPDX header; they are covered by `REUSE.toml`. Unimian's derives from Planner's. | accepted 2026-10-10 |
 
 ## Documentation findings
 
@@ -120,6 +120,6 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | TMP-05 | Unisastra | `release`, `ci`, and `validate:release-tag` scripts and `package.json` `obsidianMinAppVersion` remain until the Release PR workflow replaces them in Phase 6. | closed 2026-10-09 |
 | TMP-06 | Unimian | `verify:artifacts` does not yet check version consistency; `versions.json` still maps the deleted 1.0.3 release. Both are settled with the reset to 0.0.1. | closed 2026-10-09 |
 | TMP-07 | All | The Release PR `chore: release 0.0.1` is open and waits for the maintainer. CI has not run on it; close and reopen it, or set `RELEASE_TOKEN`. | open |
-| TMP-08 | Unimian, Unisastra, Unistoria | Dependabot pull requests opened before the standardization are stale (some update packages that were removed). Close or let Dependabot rebase them. | open |
+| TMP-08 | Unimian, Unisastra, Unistoria | Dependabot pull requests opened before the standardization are stale (some update packages that were removed). Close or let Dependabot rebase them. | closed 2026-10-10: five pre-standardization Dependabot pull requests closed |
 | TMP-03 | All | Branch protection requires the current CI job names; they change in Phase 6 and the protection must be updated with them. Now `Verify`, `Test (Windows)`, `Commit messages`. | closed 2026-10-09 |
 | TMP-04 | All | No tag ruleset yet; it is set together with release-please so the bot can still create tags. | open |
