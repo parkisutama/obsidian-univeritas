@@ -16,10 +16,12 @@ This repository holds what the plugins share.
 | Path | Content |
 | --- | --- |
 | [docs/obsidian-plugin-engineering-standard.md](docs/obsidian-plugin-engineering-standard.md) | The engineering standard every plugin follows: toolchain, scripts, CI, releases, licensing, security. |
+| [docs/plugin-development-workflow.md](docs/plugin-development-workflow.md) | How a change travels from a branch to a published release, the same in every plugin. |
 | [docs/native-acceptance-checklists.md](docs/native-acceptance-checklists.md) | What to check inside Obsidian before a release. |
 | [docs/implementation-plan.md](docs/implementation-plan.md) | How the three plugins were brought to the standard, phase by phase. |
 | [docs/open-items.md](docs/open-items.md) | What is deferred, unverified, or still to decide. |
-| `docs/unimian/`, `docs/unisastra/` | User and developer guides of each plugin. |
+| [docs/obsidian-plugin-audit-prompts.md](docs/obsidian-plugin-audit-prompts.md) | An audit document and prompts for reviewing a plugin before beta testing, submission, or release. |
+| [docs/unimian/](docs/unimian/README.md), [docs/unisastra/](docs/unisastra/README.md) | User and developer guides of each plugin. |
 | `templates/` | The shared workflows, hooks, configuration, and conformance test, with the tools that install them in a plugin repository. |
 
 ## Starting a new plugin

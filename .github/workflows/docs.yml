@@ -1,0 +1,26 @@
+name: Docs
+
+# Markdown structure and relative links of the standard, the guides, and the templates.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # The same rumdl version the plugins pin in their lockfiles.
+      - run: npx --yes rumdl@0.2.78 check .

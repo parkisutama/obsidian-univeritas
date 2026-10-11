@@ -41,7 +41,7 @@ The hooks never modify files; the commit-message hook checks Conventional Commit
 ## Working with an AI agent
 
 Agents read [AGENTS.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/AGENTS.md); Claude reaches it through [CLAUDE.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/CLAUDE.md).
-See also [AI assisted development](en/for-developers/ai-assisted-development.md).
+See also [AI assisted development](for-developers/ai-assisted-development.md).
 
 ## More guides
 
