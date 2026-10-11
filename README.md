@@ -21,7 +21,7 @@ This repository holds what the plugins share.
 | [docs/implementation-plan.md](docs/implementation-plan.md) | How the three plugins were brought to the standard, phase by phase. |
 | [docs/open-items.md](docs/open-items.md) | What is deferred, unverified, or still to decide. |
 | [docs/obsidian-plugin-audit-prompts.md](docs/obsidian-plugin-audit-prompts.md) | An audit document and prompts for reviewing a plugin before beta testing, submission, or release. |
-| [docs/unimian/](docs/unimian/README.md), [docs/unisastra/](docs/unisastra/README.md) | User and developer guides of each plugin. |
+| [docs/unimian/](docs/unimian/README.md), [docs/unisastra/](docs/unisastra/README.md), [docs/unistoria/](docs/unistoria/README.md) | User and developer guides of each plugin. |
 | `templates/` | The shared workflows, hooks, configuration, and conformance test, with the tools that install them in a plugin repository. |
 
 ## Starting a new plugin

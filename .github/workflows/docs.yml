@@ -1,11 +1,14 @@
 name: Docs
 
-# Markdown structure and relative links of the standard, the guides, and the templates.
+# Markdown structure and links of the standard, the guides, and the templates.
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  # A plugin repository can move a file this repository links to; catch that within a week.
+  schedule:
+    - cron: "17 3 * * 1"
 
 concurrency:
   group: docs-${{ github.workflow }}-${{ github.ref }}
@@ -24,3 +27,27 @@ jobs:
           persist-credentials: false
       # The same rumdl version the plugins pin in their lockfiles.
       - run: npx --yes rumdl@0.2.78 check .
+
+  cross-links:
+    name: Cross-repository links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: parkisutama/obsidian-unimian
+          path: obsidian-unimian
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: parkisutama/obsidian-unisastra
+          path: obsidian-unisastra
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: parkisutama/obsidian-unistoria
+          path: obsidian-unistoria
+          persist-credentials: false
+      - run: node templates/tools/check-cross-links.mjs

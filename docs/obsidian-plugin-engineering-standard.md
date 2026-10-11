@@ -5,12 +5,14 @@ tags:
   - engineering
   - obsidian-plugin
   - profile
-status: draft
+status: active
 authority: normative
 owner: "Parkis Utama"
 related:
   - "implementation-plan.md"
   - "developer-experience-audit.md"
+  - "plugin-development-workflow.md"
+  - "open-items.md"
 ---
 
 # Obsidian Plugin Engineering Standard
@@ -20,8 +22,9 @@ This is the single engineering standard for every Obsidian plugin in this worksp
 It binds the universal rules of the Development Playbook (`D:\repos\development-playbook`) to the Obsidian plugin stack.
 In Playbook terms it is a combined application profile (Obsidian community plugin) and toolchain profile (TypeScript, pnpm, esbuild).
 
-Status is `draft`: the maintainer approved the script contract, the vault deploy rule, the minimum Obsidian version, and the Release PR direction on 2026-10-09.
-Nothing in [Migration backlog](#migration-backlog) is applied yet; the [implementation plan](implementation-plan.md) sequences that work, and [Open decisions](#open-decisions) lists what still needs a decision.
+Status is `active`: the three plugins conform, and `pnpm run conformance` checks the rules that can be checked by a machine in each of them.
+The [implementation plan](implementation-plan.md) records how they were brought here, the [open items register](open-items.md) lists what is deferred or unverified, and [Open decisions](#open-decisions) lists what still needs a decision.
+The [development workflow](plugin-development-workflow.md) walks through the same rules from a contributor's side.
 
 Precedence: a rule set by Obsidian (release tag format, release assets, manifest files, plugin guidelines) always wins. Where Obsidian is silent, release-please and the Playbook decide.
 
@@ -275,42 +278,37 @@ Rules:
 ## New plugin checklist
 
 1. Run the Playbook route first: Product Brief, PRD, and Product Gate before choosing scope; this standard applies from Engineering Inception onward.
-2. Copy the layout in [Repository layout](#repository-layout) from the newest conforming plugin (currently `obsidian-unistoria`).
+2. Copy the layout in [Repository layout](#repository-layout) from the newest conforming plugin (currently `obsidian-unistoria`), then install the shared workflows, hooks, and conformance test with `templates/tools/apply-plugin-template.mjs`.
 3. Set `id`, `name`, `description`, `author`, `isDesktopOnly`, and `minAppVersion` in `manifest.json`; pin `obsidian` to the same version.
 4. Set the version to `0.0.1` in `package.json`, `manifest.json`, and `versions.json`.
 5. Confirm every script in [Script contract](#script-contract) exists and `pnpm run verify` passes.
-6. Add `SECURITY.md`, `.github/dependabot.yml`, and the two workflows; pin actions to SHAs.
+6. Confirm the template installed `SECURITY.md`, `.github/dependabot.yml`, and the two workflows, and that `pnpm run conformance` passes.
 7. On GitHub: enable squash merge only, branch protection, the tag ruleset, secret scanning, and private vulnerability reporting.
 8. Write the threat-model notes for the plugin's own inputs in `docs/`.
 9. State pre-1.0 stability and any network use in `README.md`.
 10. Deploy to a test vault with `pnpm run deploy` and record the first native acceptance.
 
-## Migration backlog
+## Migration status
 
-Not applied yet. Each row is work for one plugin.
+The migration of the three existing plugins is complete; the [implementation plan](implementation-plan.md) holds the record, phase by phase.
+What remains:
 
-| Plugin | Change |
-| --- | --- |
-| All | Rename `check:ci` to `verify`; point CI at it. |
-| All | Reset versions to `0.0.1`, delete old tags and GitHub releases, empty `versions.json` and `CHANGELOG.md`, and explain the reset in `README.md`. |
-| All | Add the Release PR workflow, `SECURITY.md`, `.github/dependabot.yml`, SHA-pinned actions, split release permissions, `pnpm audit --prod` in CI. |
-| All | Add branch protection and a tag ruleset on GitHub. |
-| All | Add SPDX headers, `LICENSES/`, and `REUSE.toml`. |
-| Unimian | Build to `dist/` and stop tracking `styles.css`; update `verify:artifacts` and the release workflow. |
-| Unimian | Add `deploy` with the vault guard; `lint` becomes `biome check`; `lint:fix` becomes `fix`; add `lint:md`; `version` becomes `version:sync`. |
-| Unimian | Add commitlint and Husky; add `CLAUDE.md` and `CHANGELOG.md`. |
-| Unimian | Write frontmatter through `processFrontMatter`; add the vault path helper; remove the unused `ultracite` dependency and the stale `LpcHost.ts` exclusion in `tsconfig.json`. |
-| Unimian | Disclose remote cover images in `README.md`. |
-| Unisastra | `deploy` runs `build` first; `check` gains `test`; remove `typecheck:fast` and `typecheck:ci`; add `test:coverage`, `version:sync`, `.env.example`. |
-| Unisastra | Replace `release`, `ci`, and `validate:release-tag` with the Release PR workflow. |
-| Unisastra | Pass `github.ref_name` through `env:` in `release.yml`; update `pnpm/action-setup`; read Node from `.node-version`; add the Windows job and `concurrency`. |
-| Unisastra | Remove or replace the `electron` dev dependency; review the five `allowBuilds` entries. |
-| Unisastra | Validate the migrated cursor-position data before storing it. |
-| Unistoria | `build` stops copying to the vault; add `deploy`. |
-| Unistoria | Add commitlint and Husky; add `CHANGELOG.md`; add provenance attestation to the release. |
+| Plugin | Remaining | Tracked as |
+| --- | --- | --- |
+| All | The first release from the Release PR workflow (`0.0.1`), after native acceptance. | TMP-07, VER-22 |
+| All | The tag ruleset on GitHub, set after the first release so the workflow can still create tags. | TMP-04 |
+| All | Native acceptance on Obsidian 1.14.4 of everything changed during the migration. | VER-01, VER-02 |
+| Unimian, Unisastra | The Vitest wrapper scripts, kept until `vitest run` is shown to work on Windows without them. | [Open decisions](#open-decisions) |
+
+One rule changed while it was applied: new-note frontmatter in Unimian is written with `stringifyYaml` in a single write, not `processFrontMatter` (DEC-01).
 
 ## Open decisions
 
-- **Exact tool versions.** The implementation plan proposes a target table; it becomes part of this standard once confirmed.
 - **Vitest wrappers.** `scripts/run-vitest.mjs` (Unimian) and `scripts/test.mjs` (Unisastra) are removed only after `vitest run` is shown to work on Windows without them.
-Decided on 2026-10-09: this standard stays in this repository, all three repositories are public, all three use `GPL-3.0-only`, and indentation is tabs.
+- **Coverage thresholds.** The rule under [Verification evidence](#verification-evidence) stands until the thresholds are reviewed in a session on test quality (COV-01, COV-02).
+- **TypeScript 7 and ESLint 10.** Held back by `typescript-eslint` and `eslint-plugin-obsidianmd` (DEP-06).
+
+Decided:
+
+- 2026-10-09: this standard stays in this repository, all three repositories are public, all three use `GPL-3.0-only`, and indentation is tabs.
+- 2026-10-10: the tool versions under [Toolchain](#toolchain) are confirmed; `versions.json` gets an entry only when `minAppVersion` changes; user and developer guides live in this repository, while specifications and decision records stay beside the code.

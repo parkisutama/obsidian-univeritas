@@ -51,4 +51,4 @@ Developer guides are written in English. The user guides are in Indonesian for n
 ## Keep the index current
 
 When a guide is added, moved, or removed, update the [guide index](../README.md) and any link to it from the plugin's `README.md`, `CONTRIBUTING.md`, and `AGENTS.md`.
-The Markdown lint of each repository checks relative links only, so check links between the two repositories by hand.
+The Markdown lint of each repository checks relative links only. Links between the two repositories are checked by `node templates/tools/check-cross-links.mjs`, run from the workspace root and in the workspace's `Docs` workflow.
