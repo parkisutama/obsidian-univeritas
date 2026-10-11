@@ -71,23 +71,6 @@ Untuk memperbaiki format yang bisa diautofix:
 pnpm run fix
 ```
 
-## Documentation site
-
-Jalankan VitePress secara lokal:
-
-```bash
-pnpm run docs:dev
-```
-
-Build site sebelum mengubah workflow GitHub Pages:
-
-```bash
-pnpm run docs:build
-```
-
-GitHub Pages memakai output dari `docs/.vitepress/dist`, tetapi folder build
-itu tidak perlu di-commit.
-
 ## Next steps
 
 - Mulai pekerjaan baru: [Start a feature or bugfix](start-a-feature-or-bugfix.md)

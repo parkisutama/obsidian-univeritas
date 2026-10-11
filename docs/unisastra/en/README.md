@@ -37,7 +37,7 @@ Mulai dari sini jika tujuan Anda adalah mengubah kode, dokumentasi, atau release
 - [SDLC for this plugin](for-developers/sdlc-for-this-plugin.md)
 
 Quickstart contributor tetap ada di
-[DEVELOPMENT.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/DEVELOPMENT.md).
+[DEVELOPMENT.md](../DEVELOPMENT.md).
 
 ## Reference
 

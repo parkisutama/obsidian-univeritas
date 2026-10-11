@@ -142,7 +142,7 @@ Catatan:
   dibuka) otomatis menunjukkan level heading baris tempat kursor berada;
   memilih level menerapkannya langsung ke baris tersebut. Heading H5 ke
   atas menonaktifkan dropdown (tidak dikelola toolbar),
-- aksi **Link** membungkus seleksi menjadi `[teks](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/untuk-pengguna/url)` atau melepas link
+- aksi **Link** membungkus seleksi menjadi `[teks](url)` atau melepas link
   yang sudah menjadi seluruh seleksi. Placeholder URL `https://` dipakai
   secara default; aktifkan **Smart URL** di tab Toolbar agar Link membaca
   clipboard saat diklik dan memakai isinya jika berupa URL http(s) yang valid

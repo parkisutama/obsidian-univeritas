@@ -124,9 +124,9 @@ Rules:
 - The destination is `OBSIDIAN_VAULT_PLUGIN_PATH` in `.env`. `.env` is ignored by git; `.env.example` is committed.
 - Copied files: `main.js`, `manifest.json`, `styles.css` from `dist/`.
 - The copy is refused, and nothing is written, unless all of these hold:
-    - the destination folder name equals `manifest.json` `id`;
-    - the parent `plugins` folder already exists;
-    - all three artifacts exist in `dist/`.
+  - the destination folder name equals `manifest.json` `id`;
+  - the parent `plugins` folder already exists;
+  - all three artifacts exist in `dist/`.
 - Point the path at a test vault, not a working vault.
 
 ## Repository layout

@@ -1,75 +1,48 @@
 # Development
 
-> **Release steps changed on 2026-10-09.** Releases now come from a Release PR; the
-> `pnpm run release`, `pnpm run ci`, and `validate:release-tag` commands no longer exist.
-> Where this page mentions them, follow [CONTRIBUTING.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/CONTRIBUTING.md) instead.
-
-**You are welcome to open issues and contribute to this project!**
+Setup and the local development loop for Unisastra.
+Commits, pull requests, and releases are described in the plugin's [CONTRIBUTING.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/CONTRIBUTING.md); the rules shared by all three plugins are in the [engineering standard](../obsidian-plugin-engineering-standard.md).
 
 ## Prerequisites
 
-1. Install [Node.js](https://nodejs.org/) 24.x (see `.node-version`)
-2. Enable [pnpm](https://pnpm.io/) through Corepack:
-   `corepack enable`
+1. Install [Node.js](https://nodejs.org/) 24 (see `.node-version`).
+2. Enable [pnpm](https://pnpm.io/) through Corepack: `corepack enable`.
 
 ## Setup
 
-1. Fork this repo and clone your fork
-2. Install dependencies with `pnpm install`
+1. Clone the repository, or your fork of it.
+2. Run `pnpm install`. This also installs the Husky hooks.
+3. Optional: to copy builds into a vault of your own, create `.env` with `OBSIDIAN_VAULT_PLUGIN_PATH=<vault>/.obsidian/plugins/unisastra`.
+   The deploy script refuses a folder with any other name. Point it at a test vault, not the vault you write in.
 
-For detailed workflow notes, see [Unisastra docs](README.md).
+## Build and try it in Obsidian
 
-## Building and Testing
+| Command | What it does |
+| --- | --- |
+| `pnpm run dev` | Watch build. Prepares `test-vault/`, and also copies to the vault named in `.env` when that is set. |
+| `pnpm run debug` | The same, keeping `console.debug` and `console.log` calls, which other builds strip. |
+| `pnpm run build` | Production build into `dist/`. Never touches a vault. |
+| `pnpm run deploy` | Builds, then copies `dist/` once to the vault named in `.env`. |
 
-1. Build and Setup Test Vault
-   - Build with `pnpm run build`
-   - Use `pnpm run dev` to build, update the test vault, and deploy to the
-     configured Obsidian plugin folder in one step
-   - Use `pnpm run debug` to enable `console.debug` statements _(all other commands strip these)_
-   - Deploy the current `dist` output to a custom Obsidian vault with
-     `pnpm run deploy` _(requires a `.env` file with
-     `OBSIDIAN_VAULT_PLUGIN_PATH=<path>`)_
+Open `test-vault/` in Obsidian. After a rebuild, reload Obsidian (**Reload app without saving**) to load the new build.
 
-2. Test in Obsidian
-   - Open the test vault in Obsidian
-   - If the test vault is already opened, _force reload_ Obsidian to see changes
+## Checks
 
-## Code Quality
+| Command | What it does |
+| --- | --- |
+| `pnpm run check` | Typecheck, Biome, Obsidian ESLint, Stylelint, Markdown lint, and tests. The pre-commit hook runs it. |
+| `pnpm run verify` | `check` with coverage, then build, artifact verification, and conformance. CI runs it. |
+| `pnpm run fix` | Applies the Biome, Stylelint, and Markdown autofixes. Review the diff before staging. |
+| `pnpm run test` | Vitest only. |
 
-| Command | Description |
-| --------- | ------------- |
-| `pnpm run check` | Run all checks (typecheck + lint + stylelint + markdownlint) |
-| `pnpm run typecheck` | TypeScript type check |
-| `pnpm run lint` | Biome lint and format checks |
-| `pnpm run lint:styles` | SCSS linting |
-| `pnpm run lint:md` | Markdown linting |
-| `pnpm run fix` | Apply available Biome, Stylelint, and Markdown fixes |
+The single checks are `typecheck`, `lint`, `lint:obsidian`, `lint:styles`, and `lint:md`.
+The hooks never modify files; the commit-message hook checks Conventional Commits.
 
-Husky installs through `pnpm install`. Pre-commit runs `pnpm run check`
-without modifying files; commit-msg enforces Conventional Commits via commitlint.
-Run `pnpm run fix` explicitly and review changes before staging.
+## Working with an AI agent
 
-For AI development, read [AGENTS.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/AGENTS.md) and
-[AI Assisted Development](en/for-developers/ai-assisted-development.md).
-Claude follows the same instructions through [CLAUDE.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/CLAUDE.md).
+Agents read [AGENTS.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/AGENTS.md); Claude reaches it through [CLAUDE.md](https://github.com/parkisutama/obsidian-unisastra/blob/main/CLAUDE.md).
+See also [AI assisted development](en/for-developers/ai-assisted-development.md).
 
-## Documentation Site
+## More guides
 
-| Command | Description |
-| --------- | ------------- |
-| `pnpm run docs:dev` | Start the VitePress docs site locally |
-| `pnpm run docs:build` | Build the static docs site for GitHub Pages |
-| `pnpm run docs:preview` | Preview the built docs site locally |
-
-GitHub Pages deployment is handled by the `Deploy documentation` workflow.
-
-## Releasing
-
-- `pnpm run release` — Run release validation, create the local release commit,
-  and create the local semver tag
-- `git push --follow-tags` — Push the release commit and tag; the tag triggers
-  the GitHub release workflow
-- `pnpm run ci` — CI build used by GitHub Actions
-
-Longer release procedures live in
-[Create a GitHub release for BRAT and Obsidian](en/for-developers/create-a-github-release.md).
+The [guide index](README.md) lists the user and developer guides.

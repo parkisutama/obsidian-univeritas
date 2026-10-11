@@ -1,0 +1,18 @@
+[global]
+
+# MD013: prose uses semantic line breaks, not a column limit.
+disable = ["MD013"]
+
+# The plugin folders and worktrees are separate repositories with their own lint.
+exclude = [".git", ".worktrees", "obsidian-unimian", "obsidian-unisastra", "obsidian-unistoria", "templates/plugin/CHANGELOG.md"]
+
+respect-gitignore = true
+
+# Documents carry `title` in frontmatter and repeat it as the single H1.
+[MD025]
+front-matter-title = ""
+
+# Fragments pasted into a plugin's AGENTS.md and CONTRIBUTING.md; they start below a heading there.
+[per-file-ignores]
+"templates/plugin/AGENTS-release-section.md" = ["MD041"]
+"templates/plugin/CONTRIBUTING-releasing-section.md" = ["MD041"]
