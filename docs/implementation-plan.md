@@ -35,25 +35,25 @@ Each phase is one pull request per repository, merged by squash with a Conventio
 
 ## Target toolchain
 
-Versions are the latest stable releases on 2026-10-09 that are mutually compatible.
+Versions are the latest stable releases checked on 2026-11-16 that are mutually compatible.
 
 | Tool | Target | Unimian now | Unisastra now | Unistoria now | Note |
 | --- | --- | --- | --- | --- | --- |
 | Node.js | 24 (LTS) | 24 | 24 | 24 | `engines.node` `>=24` everywhere. |
 | pnpm | 12.10.1 | 12.4.2 | 11.21.0 | 12.8.1 | Unisastra crosses a major; review the lockfile diff. |
-| TypeScript | 6.0.x | ^6.0.3 | ^5.9.3 | ^6.0.3 | **Not 7.0.2.** `typescript-eslint` 8.71.1 requires `typescript <6.1.0`. |
-| `typescript-eslint`, `@typescript-eslint/parser` | 8.71.1 | ^8.70.0 | parser only | ^8.71.0 | The meta package is a peer of `eslint-plugin-obsidianmd`; it stays. |
-| ESLint | 9.39.5 | ^10.11.0 | ^10.9.0 | ^9.39.5 | **Not 10.** `eslint-plugin-obsidianmd` depends on plugins whose `eslint` peer stops at 9; `pnpm peers check` is clean only on 9. |
-| `eslint-plugin-obsidianmd` | 0.4.2 | ^0.4.2 | ^0.4.1 | ^0.4.2 | Latest. |
-| `@eslint/json` | 0.14.0 | 2.1.0 | ^0.14.0 | 0.14.0 | **Not 2.1.1.** The Obsidian plugin pins this peer to exactly `0.14.0`. |
-| Biome | 2.5.15 | 2.5.14 | 2.5.8 | 2.5.14 | `recommended` preset; `ultracite` removed. |
+| TypeScript | 6.0.x | ^6.0.3 | ^5.9.3 | ^6.0.3 | **Not 7.0.2.** Stable `typescript-eslint` 8.72.2 still requires `typescript <6.1.0`; track [#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). |
+| `typescript-eslint`, `@typescript-eslint/parser` | 8.72.2 | ^8.71.1 | parser only | ^8.71.1 | Supports ESLint 10; the meta package remains an Obsidian plugin peer. |
+| ESLint | 10.15.0 | ^9.39.5 | ^10.9.0 | ^9.39.5 | `eslint-plugin-obsidianmd` 0.6 accepts ESLint 9.19 or newer. |
+| `eslint-plugin-obsidianmd` | 0.6.0 | ^0.4.2 | ^0.4.1 | ^0.4.2 | Adds the public `obsidianmd/plain-text` language and accepts `@eslint/json` 2.x. |
+| `@eslint/json` | 2.1.1 | 0.14.0 | ^0.14.0 | 0.14.0 | Compatible with Node 24 and `eslint-plugin-obsidianmd` 0.6. |
+| Biome | 2.6.8 | 2.5.15 | 2.5.8 | 2.5.15 | `recommended` preset; `ultracite` removed. |
 | esbuild | 0.28.2 | ^0.28.2 | ^0.25.12 | ^0.28.2 | |
-| Vitest, `@vitest/coverage-v8` | 5.0.3 | ^5.0.1 | ^4.1.11 | ^5.0.3 | Unisastra crosses a major. |
-| happy-dom | 20.14.6 | ^20.14.5 | none | ^20.14.5 | Only where tests need a DOM. |
-| rumdl | 0.2.78 | none | ^0.1.96 | ^0.2.78 | |
+| Vitest, `@vitest/coverage-v8` | 5.1.0 | ^5.0.3 | ^4.1.11 | ^5.0.3 | Unisastra crosses a major. |
+| happy-dom | 21.0.4 | ^21.0.4 | none | ^20.14.5 | Only where tests need a DOM. |
+| rumdl | 0.3.4 | ^0.2.78 | ^0.1.96 | ^0.2.78 | |
 | `@types/node` | ^24 | ^24 | ^25 | ^24 | Follows the runtime, not the newest types. |
 | Husky | 9.1.7 | none | ^9.1.7 | none | |
-| commitlint (`cli`, `config-conventional`) | 21.2.3 | none | ^21.2.2 | none | |
+| commitlint (`cli`, `config-conventional`) | 21.2.4 | ^21.2.3 | ^21.2.2 | ^21.2.3 | |
 | `obsidian` | 1.14.4 | 1.14.4 | 1.14.4 | 1.14.4 | Done. |
 
 Version ranges: tools that decide lint or format output (`@biomejs/biome`, `obsidian`, `@eslint/json`) are pinned exactly; the rest use a caret range and are held by the lockfile.
