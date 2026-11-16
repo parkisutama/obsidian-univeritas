@@ -5,10 +5,10 @@ Give the agent the active documentation as context before asking it to write cod
 
 ## Reading order
 
-1. [Development status](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/development-status.md): gates and work not yet validated.
-2. [Current state](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/current-state.md): what is implemented, and the compatibility identifiers.
-3. [Architecture baseline](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/reference/code-architecture-baseline.md): what each module is responsible for.
-4. [ADR-001](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/reference/decisions/ADR-001-ai-development-context-and-gates.md) and any other decision record the change relates to.
+1. [Development status](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/development-status.md): gates and work not yet validated.
+2. [Current state](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/current-state.md): what is implemented, and the compatibility identifiers.
+3. [Architecture baseline](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/reference/code-architecture-baseline.md): what each module is responsible for.
+4. [ADR-001](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/reference/decisions/ADR-001-ai-development-context-and-gates.md) and any other decision record the change relates to.
 5. The user guide, the related specification, the source, and the tests for the area being touched.
 
 Choose context by task. Outliner work uses the outliner specification and `src/cm6/outliner/`; release work uses the [development workflow](../../plugin-development-workflow.md) and `scripts/lib/`.
