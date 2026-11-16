@@ -29,9 +29,9 @@ Shared rules and tools:
 
 ## In the plugin repository
 
-- [Current state](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/current-state.md) and [development status](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/development-status.md)
-- [Architecture baseline](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/reference/code-architecture-baseline.md)
-- [Decision records](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/en/reference/decisions)
-- Specifications: [`docs/specs/`](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/specs) and [`docs/en/specs/`](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/en/specs)
-- [Outliner requirements and plan](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/reference/outliner-urd-prd.md)
-- [Archive](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/en/archive): historical documents, not active instructions.
+- [Current state](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/current-state.md) and [development status](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/development-status.md)
+- [Architecture baseline](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/reference/code-architecture-baseline.md)
+- [Decision records](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/reference/decisions)
+- Specifications: [`docs/specs/`](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/specs)
+- [Outliner requirements and plan](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/reference/outliner-urd-prd.md)
+- [Archive](https://github.com/parkisutama/obsidian-unisastra/tree/main/docs/archive): historical documents, not active instructions.
