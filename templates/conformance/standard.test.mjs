@@ -92,7 +92,8 @@ const VERSION_LINES = {
 	// TypeScript 7 stays deferred until the stable parser peer allows it:
 	// https://github.com/typescript-eslint/typescript-eslint/issues/10940
 	typescript: /^\^6\./,
-	eslint: /^\^10\./,
+	// Not 10: transitive plugins bundled by eslint-plugin-obsidianmd still stop at 9.
+	eslint: /^\^9\./,
 	"typescript-eslint": /^\^8\./,
 	"@typescript-eslint/parser": /^\^8\./,
 	"eslint-plugin-obsidianmd": /^\^0\.6\./,
