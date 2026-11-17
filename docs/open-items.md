@@ -25,7 +25,7 @@ Nothing here blocks the current phase. Add an item when it appears; close it wit
 | DEP-03 | Unisastra | `pnpm-workspace.yaml` overrides `js-yaml` and `vitepress>vite` as security patches; recheck whether they are still needed. | closed 2026-10-10: the two overrides existed for VitePress and went with it |
 | DEP-04 | Unisastra | `@parcel/watcher` is allowed to run an install script; confirm which package needs it. | closed 2026-10-10: `@parcel/watcher` is the file watcher of `sass`; recorded in `pnpm-workspace.yaml` |
 | DEP-05 | All | `obsidian@1.14.4` sits in `minimumReleaseAgeExclude`; remove the entry once the release is old enough. | closed 2026-10-10: exclusion removed in all three; installs pass |
-| DEP-06 | All | TypeScript 7 is held back by stable `typescript-eslint` peer support; track [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). | open; ESLint 10 unblocked 2026-11-16 by `eslint-plugin-obsidianmd` 0.6, while `typescript-eslint` 8.72.2 still requires TypeScript `<6.1.0` |
+| DEP-06 | All | TypeScript 7 is held back by stable `typescript-eslint` peer support; ESLint 10 is held back by plugins bundled with `eslint-plugin-obsidianmd`. Track [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). | open; `typescript-eslint` 8.72.2 requires TypeScript `<6.1.0`; on 2026-11-17 `pnpm peers check` showed ESLint 10 conflicts in `eslint-plugin-import`, `eslint-plugin-react`, and `@microsoft/eslint-plugin-sdl` |
 
 ## Working arrangement
 

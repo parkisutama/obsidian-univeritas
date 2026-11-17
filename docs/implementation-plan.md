@@ -42,8 +42,8 @@ Versions are the latest stable releases checked on 2026-11-16 that are mutually 
 | Node.js | 24 (LTS) | 24 | 24 | 24 | `engines.node` `>=24` everywhere. |
 | pnpm | 12.10.1 | 12.4.2 | 11.21.0 | 12.8.1 | Unisastra crosses a major; review the lockfile diff. |
 | TypeScript | 6.0.x | ^6.0.3 | ^5.9.3 | ^6.0.3 | **Not 7.0.2.** Stable `typescript-eslint` 8.72.2 still requires `typescript <6.1.0`; track [#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). |
-| `typescript-eslint`, `@typescript-eslint/parser` | 8.72.2 | ^8.71.1 | parser only | ^8.71.1 | Supports ESLint 10; the meta package remains an Obsidian plugin peer. |
-| ESLint | 10.15.0 | ^9.39.5 | ^10.9.0 | ^9.39.5 | `eslint-plugin-obsidianmd` 0.6 accepts ESLint 9.19 or newer. |
+| `typescript-eslint`, `@typescript-eslint/parser` | 8.72.2 | ^8.71.1 | parser only | ^8.71.1 | Its own peer supports ESLint 10; the meta package remains an Obsidian plugin peer. |
+| ESLint | 9.39.5 | ^9.39.5 | ^10.9.0 | ^9.39.5 | `eslint-plugin-obsidianmd` 0.6 accepts 10, but its bundled import, React, and SDL plugins do not. |
 | `eslint-plugin-obsidianmd` | 0.6.0 | ^0.4.2 | ^0.4.1 | ^0.4.2 | Adds the public `obsidianmd/plain-text` language and accepts `@eslint/json` 2.x. |
 | `@eslint/json` | 2.1.1 | 0.14.0 | ^0.14.0 | 0.14.0 | Compatible with Node 24 and `eslint-plugin-obsidianmd` 0.6. |
 | Biome | 2.6.8 | 2.5.15 | 2.5.8 | 2.5.15 | `recommended` preset; `ultracite` removed. |
