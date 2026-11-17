@@ -64,14 +64,14 @@ Each one is an explicit exception, as the Playbook's profile rules require.
 | Node.js | `.node-version` contains `24`; `engines.node` is `>=24` | CI reads `.node-version`. |
 | Package manager | pnpm, pinned exactly in `packageManager` | One version across all plugins. |
 | Lockfile | `pnpm-lock.yaml` committed; CI installs with `--frozen-lockfile` | No other lockfile may exist. |
-| Language | TypeScript, `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax`, `target` ES2022 | |
+| Language | TypeScript 6, `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax`, `target` ES2022 | TypeScript 7 remains outside the stable parser peer range. |
 | Bundler | esbuild, output to `dist/`, format `cjs` | Obsidian, Electron, CodeMirror, and Lezer packages are external. |
 | Lint and format | Biome, `recommended` preset | Warnings do not fail; errors do. |
-| Obsidian lint | ESLint 9 with `eslint-plugin-obsidianmd` only | Includes `no-unsupported-api`. ESLint 10 and `@eslint/json` 2 break the plugin's declared peers. |
+| Obsidian lint | ESLint 10 with `eslint-plugin-obsidianmd` 0.6 | Includes `no-unsupported-api`; Node 24 satisfies both packages' engine range. |
 | Markdown lint | rumdl | |
 | Tests | Vitest with v8 coverage and a ratcheted threshold | |
 
-Exact tool versions and the dependency allowlist are not yet standardized; see [Open decisions](#open-decisions).
+Exact output-affecting pins and compatible major lines are enforced by `templates/conformance/standard.test.mjs`; each plugin lockfile records the resolved versions.
 
 ### Minimum Obsidian version
 
@@ -306,9 +306,10 @@ One rule changed while it was applied: new-note frontmatter in Unimian is writte
 
 - **Vitest wrappers.** `scripts/run-vitest.mjs` (Unimian) and `scripts/test.mjs` (Unisastra) are removed only after `vitest run` is shown to work on Windows without them.
 - **Coverage thresholds.** The rule under [Verification evidence](#verification-evidence) stands until the thresholds are reviewed in a session on test quality (COV-01, COV-02).
-- **TypeScript 7 and ESLint 10.** Held back by `typescript-eslint` and `eslint-plugin-obsidianmd` (DEP-06).
+- **TypeScript 7.** Held at TypeScript 6 until the stable `typescript-eslint` peer range supports it; track [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940) (DEP-06).
 
 Decided:
 
 - 2026-10-09: this standard stays in this repository, all three repositories are public, all three use `GPL-3.0-only`, and indentation is tabs.
 - 2026-10-10: the tool versions under [Toolchain](#toolchain) are confirmed; `versions.json` gets an entry only when `minAppVersion` changes; user and developer guides live in this repository, while specifications and decision records stay beside the code.
+- 2026-11-16: `eslint-plugin-obsidianmd` 0.6 removes the ESLint 10 blocker and uses `@eslint/json` 2.x. Node and Node types stay on 24; TypeScript stays on 6 because stable `typescript-eslint` 8.72.2 still declares `typescript <6.1.0`.
