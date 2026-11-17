@@ -23,7 +23,7 @@ Try the areas the change touches:
 ## Floaty Toolbar and callouts
 
 This area has not been verified at runtime in any development environment so far.
-See the [current state](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/current-state.md#floaty-toolbar-acceptance-criteria-status) for the status of each acceptance criterion and the [task ledger](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/en/specs/floaty-toolbar/tasks.md#runtime-acceptance-ledger) for the detailed scenarios.
+See the [current state](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/current-state.md#floaty-toolbar-acceptance-criteria-status) for the status of each acceptance criterion and the [task ledger](https://github.com/parkisutama/obsidian-unisastra/blob/main/docs/specs/floaty-toolbar/tasks.md#runtime-acceptance-ledger) for the detailed scenarios.
 Before marking a change here as done at runtime, check at least:
 
 - the floating toolbar appears near the selection in Source and Live Preview on desktop, and is not mounted on mobile;

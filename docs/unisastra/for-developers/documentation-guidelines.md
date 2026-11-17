@@ -29,13 +29,13 @@ In `obsidian-unisastra`:
 
 | Content | Place |
 | --- | --- |
-| what is implemented now | `docs/en/current-state.md` |
-| status and validation evidence | `docs/en/development-status.md` |
-| module structure | `docs/en/reference/code-architecture-baseline.md` |
-| architecture decisions | `docs/en/reference/decisions/` |
+| what is implemented now | `docs/current-state.md` |
+| status and validation evidence | `docs/development-status.md` |
+| module structure | `docs/reference/code-architecture-baseline.md` |
+| architecture decisions | `docs/reference/decisions/` |
 | specification, plan, and tasks of a piece of work | `docs/specs/<slug>/` |
 | release records | `docs/releases/` |
-| historical documents | `docs/en/archive/` |
+| historical documents | `docs/archive/` |
 
 ## Keep contexts apart
 
